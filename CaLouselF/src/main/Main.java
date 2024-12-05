@@ -1,8 +1,8 @@
 package main;
 
-import controller.LoginController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import view.RegisterView;
 
 public class Main extends Application {
 
@@ -15,9 +15,13 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		primaryStage.setMaximized(true);
+//		LoginView loginView = new LoginView();
+//		loginView.start(primaryStage);
 
-		new LoginController(primaryStage);
+		RegisterView registerView = new RegisterView();
+		registerView.start(primaryStage);
 
+		primaryStage.show();
 	}
 
 }
