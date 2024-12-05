@@ -2,6 +2,7 @@ package view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Screen;
 
 public class AuthenticationView {
 
@@ -92,6 +94,18 @@ public class AuthenticationView {
 		Hyperlink link = new Hyperlink(text);
 		link.setFont(Font.font("Poppins", FontWeight.BOLD, 14));
 		return link;
+	}
+
+	protected Rectangle2D getWindowSize() {
+		return Screen.getPrimary().getVisualBounds();
+	}
+
+	protected double getWindowWidth() {
+		return getWindowSize().getWidth();
+	}
+
+	protected double getWindowHeight() {
+		return getWindowSize().getHeight();
 	}
 
 }

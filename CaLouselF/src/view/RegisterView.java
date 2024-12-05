@@ -26,17 +26,13 @@ public class RegisterView extends AuthenticationView {
 	private RadioButton buyerRadio, sellerRadio;
 
 	public void start(Stage stage) {
-		usernameField = createTextField("Enter your username");
-		passwordField = createPasswordField("Enter your password");
-		phoneField = createTextField("Enter your phone number");
-		addressField = createTextArea("Enter your address");
-		registerButton = createButton("Register");
-		loginButton = createHyperlink("Sign In Now");
+
+		init(stage);
 
 		VBox container = createContainer();
 
 		container.getChildren().addAll(createLabel("Register", 40), createTextFieldContainer(usernameField, "Username"),
-				createPasswordFieldContainer(passwordField, "password"),
+				createPasswordFieldContainer(passwordField, "Password"),
 				createTextFieldContainer(phoneField, "Phone Number"), createAddressContainer(addressField, "Address"),
 				createRoleGroupContainer("Roles"), registerButton, createLabel("Already have an account?", 14),
 				loginButton);
@@ -44,11 +40,28 @@ public class RegisterView extends AuthenticationView {
 		StackPane stackPane = new StackPane();
 		stackPane.getChildren().add(container);
 
-		scene = new Scene(stackPane, 1000, 600);
+		scene = new Scene(stackPane, getWindowWidth(), getWindowHeight());
 		scene.setFill(Color.WHITESMOKE);
 
 		stage.setScene(scene);
 		stage.setTitle("Register Page");
+	}
+
+	private void init(Stage stage) {
+		usernameField = createTextField("Enter your username");
+		passwordField = createPasswordField("Enter your password");
+		phoneField = createTextField("Enter your phone number");
+		addressField = createTextArea("Enter your address");
+		registerButton = createButton("Register");
+		loginButton = createHyperlink("Sign In Now");
+
+		loginButton.setOnAction(event -> goToLoginView(stage));
+	}
+
+	private void goToLoginView(Stage stage) {
+
+		LoginView loginView = new LoginView();
+		loginView.start(stage);
 	}
 
 	private VBox createAddressContainer(TextArea textArea, String text) {
@@ -61,7 +74,6 @@ public class RegisterView extends AuthenticationView {
 		TextArea textArea = new TextArea();
 		textArea.setPromptText(text);
 		textArea.setFont(Font.font("Poppins", 16));
-//		textArea.setPadding(new Insets(5, 10, 5, 10));
 		return textArea;
 	}
 

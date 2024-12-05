@@ -20,11 +20,7 @@ public class LoginView extends AuthenticationView {
 	private Hyperlink registerButton;
 
 	public void start(Stage stage) {
-
-		usernameField = createTextField("Enter your username");
-		passwordField = createPasswordField("Enter your password");
-		loginButton = createButton("Login");
-		registerButton = createHyperlink("Sign Up Now");
+		init(stage);
 
 		VBox container = createContainer();
 		container.getChildren().addAll(createLabel("Login", 40), createTextFieldContainer(usernameField, "Username"),
@@ -36,12 +32,28 @@ public class LoginView extends AuthenticationView {
 		StackPane stackPane = new StackPane();
 		stackPane.getChildren().add(container);
 
-		scene = new Scene(stackPane, 1000, 600);
+		scene = new Scene(stackPane, getWindowWidth(), getWindowHeight());
 		scene.setFill(Color.WHITESMOKE);
 
 		stage.setScene(scene);
 		stage.setTitle("Login Page");
 
+	}
+
+	private void init(Stage stage) {
+		usernameField = createTextField("Enter your username");
+		passwordField = createPasswordField("Enter your password");
+		loginButton = createButton("Login");
+		registerButton = createHyperlink("Sign Up Now");
+
+		registerButton.setOnAction(event -> goToRegisterView(stage));
+
+	}
+
+	private void goToRegisterView(Stage stage) {
+
+		RegisterView registerView = new RegisterView();
+		registerView.start(stage);
 	}
 
 }

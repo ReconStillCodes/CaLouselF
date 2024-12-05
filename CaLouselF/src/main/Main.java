@@ -14,9 +14,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		primaryStage.setMaximized(true);
+//		primaryStage.setMaximized(true);
 //		LoginView loginView = new LoginView();
 //		loginView.start(primaryStage);
+//		primaryStage.setFullScreen(true);
 
 		RegisterView registerView = new RegisterView();
 		registerView.start(primaryStage);
