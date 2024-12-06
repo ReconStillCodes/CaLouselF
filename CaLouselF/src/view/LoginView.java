@@ -30,7 +30,7 @@ public class LoginView extends AuthenticationView {
 
 		VBox container = createContainer();
 		container.getChildren().addAll(createLabel("Login", 40), createTextFieldContainer(usernameField, "Username"),
-				createPasswordFieldContainer(passwordField, "Password"), loginButton,
+				createPasswordFieldContainer(passwordField, "Password"), errorLabel, loginButton,
 				createLabel("Dont't have an account?", 14), registerButton);
 
 		VBox.setMargin(loginButton, new Insets(40, 0, 20, 0));
@@ -61,6 +61,7 @@ public class LoginView extends AuthenticationView {
 
 	private void login(String username, String password) {
 		Boolean isValid = userController.login(username, password);
+
 		if (!isValid) {
 			errorLabel.setText("Invalid Credential");
 		} else {
