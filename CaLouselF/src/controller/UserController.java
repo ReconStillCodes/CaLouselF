@@ -2,6 +2,7 @@ package controller;
 
 import database.UserDAO;
 import model.User;
+import session.Session;
 
 public class UserController {
 
@@ -15,7 +16,8 @@ public class UserController {
 		if (user == null)
 			return false;
 
-		System.out.println("Logged in");
+		Session.getSession();
+		Session.user = user;
 		return true;
 	}
 
@@ -23,10 +25,9 @@ public class UserController {
 		boolean isValid = checkAccountValidation(username, password, phone, address, role);
 
 		if (!isValid) {
-			System.out.println("In valid");
+
 			return false;
 		}
-		System.out.println("Valid");
 
 		User user = new User(generateID(), username, password, phone, address, role);
 		System.out.println(user.toString());

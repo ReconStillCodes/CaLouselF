@@ -24,7 +24,7 @@ public class LoginView extends AuthenticationView {
 
 	private UserController userController = new UserController();
 
-	public void start(Stage stage) {
+	public LoginView(Stage stage) {
 		init(stage);
 
 		VBox container = createContainer();
@@ -69,8 +69,8 @@ public class LoginView extends AuthenticationView {
 
 	private void goToRegisterView(Stage stage) {
 
-		RegisterView registerView = new RegisterView();
-		registerView.start(stage);
+		new RegisterView(stage);
+
 	}
 
 }

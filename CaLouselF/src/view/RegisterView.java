@@ -31,7 +31,7 @@ public class RegisterView extends AuthenticationView {
 
 	private UserController userController = new UserController();
 
-	public void start(Stage stage) {
+	public RegisterView(Stage stage) {
 
 		init(stage);
 
@@ -64,11 +64,11 @@ public class RegisterView extends AuthenticationView {
 		errorLabel.setTextFill(Color.RED);
 
 		registerButton.setOnAction(event -> register(usernameField.getText(), passwordField.getText(),
-				phoneField.getText(), addressField.getText(), getSelectedRole()));
+				phoneField.getText(), addressField.getText(), getSelectedRole(), stage));
 		loginButton.setOnAction(event -> goToLoginView(stage));
 	}
 
-	private void register(String username, String password, String phone, String address, String role) {
+	private void register(String username, String password, String phone, String address, String role, Stage stage) {
 
 		boolean isValid = userController.register(username, password, phone, address, role);
 
@@ -76,13 +76,12 @@ public class RegisterView extends AuthenticationView {
 			errorLabel.setText("Invalid Credential!");
 		} else {
 			errorLabel.setText("");
+			new LoginView(stage);
 		}
 	}
 
 	private void goToLoginView(Stage stage) {
-
-		LoginView loginView = new LoginView();
-		loginView.start(stage);
+		new LoginView(stage);
 	}
 
 	private String getSelectedRole() {

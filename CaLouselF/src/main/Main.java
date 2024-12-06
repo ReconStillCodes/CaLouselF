@@ -2,7 +2,7 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import view.RegisterView;
+import view.LoginView;
 
 public class Main extends Application {
 
@@ -14,9 +14,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		RegisterView registerView = new RegisterView();
-		registerView.start(primaryStage);
-
+		new LoginView(primaryStage);
 		primaryStage.show();
 	}
 
