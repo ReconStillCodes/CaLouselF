@@ -1,12 +1,15 @@
 package view;
 
+import controller.UserController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -24,6 +27,9 @@ public class RegisterView extends AuthenticationView {
 	private Scene scene;
 	private ToggleGroup roleGroup;
 	private RadioButton buyerRadio, sellerRadio;
+	private Label errorLabel;
+
+	private UserController userController = new UserController();
 
 	public void start(Stage stage) {
 
@@ -34,8 +40,8 @@ public class RegisterView extends AuthenticationView {
 		container.getChildren().addAll(createLabel("Register", 40), createTextFieldContainer(usernameField, "Username"),
 				createPasswordFieldContainer(passwordField, "Password"),
 				createTextFieldContainer(phoneField, "Phone Number"), createAddressContainer(addressField, "Address"),
-				createRoleGroupContainer("Roles"), registerButton, createLabel("Already have an account?", 14),
-				loginButton);
+				createRoleGroupContainer("Roles"), errorLabel, registerButton,
+				createLabel("Already have an account?", 14), loginButton);
 
 		StackPane stackPane = new StackPane();
 		stackPane.getChildren().add(container);
@@ -54,14 +60,40 @@ public class RegisterView extends AuthenticationView {
 		addressField = createTextArea("Enter your address");
 		registerButton = createButton("Register");
 		loginButton = createHyperlink("Sign In Now");
+		errorLabel = createLabel("", 12);
+		errorLabel.setTextFill(Color.RED);
 
+		registerButton.setOnAction(event -> register(usernameField.getText(), passwordField.getText(),
+				phoneField.getText(), addressField.getText(), getSelectedRole()));
 		loginButton.setOnAction(event -> goToLoginView(stage));
+	}
+
+	private void register(String username, String password, String phone, String address, String role) {
+
+		boolean isValid = userController.register(username, password, phone, address, role);
+
+		if (!isValid) {
+			errorLabel.setText("Invalid Credential!");
+		} else {
+			errorLabel.setText("");
+		}
 	}
 
 	private void goToLoginView(Stage stage) {
 
 		LoginView loginView = new LoginView();
 		loginView.start(stage);
+	}
+
+	private String getSelectedRole() {
+		Toggle selectedToggle = roleGroup.getSelectedToggle();
+
+		if (selectedToggle != null) {
+			RadioButton selectedRB = (RadioButton) selectedToggle;
+			return selectedRB.getText();
+		}
+
+		return null;
 	}
 
 	private VBox createAddressContainer(TextArea textArea, String text) {

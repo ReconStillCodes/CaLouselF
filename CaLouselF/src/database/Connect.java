@@ -12,7 +12,7 @@ public class Connect {
 	private final String USERNAME = "root";
 	private final String PASSWORD = "";
 	private final String DATABASE = "calouselif";
-	private final String HOST = "localhost";
+	private final String HOST = "localhost:3306";
 
 	private final String CONNECTION = String.format("jdbc:mysql://%s/%s", HOST, DATABASE);
 
@@ -42,11 +42,12 @@ public class Connect {
 
 	// SELECT
 	public ResultSet execQuery(String Query) {
+		rs = null;
 		try {
 			rs = st.executeQuery(Query);
 			rsm = rs.getMetaData();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("No Data Selected");
 		}
 
 		return rs;
