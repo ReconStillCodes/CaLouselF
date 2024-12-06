@@ -16,7 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
+import session.Session;
 
 public class RegisterView extends AuthenticationView {
 	private TextField usernameField, phoneField;
@@ -31,9 +31,9 @@ public class RegisterView extends AuthenticationView {
 
 	private UserController userController = new UserController();
 
-	public RegisterView(Stage stage) {
-
-		init(stage);
+	public RegisterView() {
+		Session.getSession();
+		init();
 
 		VBox container = createContainer();
 
@@ -49,11 +49,11 @@ public class RegisterView extends AuthenticationView {
 		scene = new Scene(stackPane, getWindowWidth(), getWindowHeight());
 		scene.setFill(Color.WHITESMOKE);
 
-		stage.setScene(scene);
-		stage.setTitle("Register Page");
+		Session.stage.setScene(scene);
+		Session.stage.setTitle("Register Page");
 	}
 
-	private void init(Stage stage) {
+	private void init() {
 		usernameField = createTextField("Enter your username");
 		passwordField = createPasswordField("Enter your password");
 		phoneField = createTextField("Enter your phone number");
@@ -64,11 +64,11 @@ public class RegisterView extends AuthenticationView {
 		errorLabel.setTextFill(Color.RED);
 
 		registerButton.setOnAction(event -> register(usernameField.getText(), passwordField.getText(),
-				phoneField.getText(), addressField.getText(), getSelectedRole(), stage));
-		loginButton.setOnAction(event -> goToLoginView(stage));
+				phoneField.getText(), addressField.getText(), getSelectedRole()));
+		loginButton.setOnAction(event -> goToLoginView());
 	}
 
-	private void register(String username, String password, String phone, String address, String role, Stage stage) {
+	private void register(String username, String password, String phone, String address, String role) {
 
 		boolean isValid = userController.register(username, password, phone, address, role);
 
@@ -76,12 +76,12 @@ public class RegisterView extends AuthenticationView {
 			errorLabel.setText("Invalid Credential!");
 		} else {
 			errorLabel.setText("");
-			new LoginView(stage);
+			goToLoginView();
 		}
 	}
 
-	private void goToLoginView(Stage stage) {
-		new LoginView(stage);
+	private void goToLoginView() {
+		new LoginView();
 	}
 
 	private String getSelectedRole() {

@@ -2,6 +2,7 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import session.Session;
 import view.LoginView;
 
 public class Main extends Application {
@@ -14,7 +15,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		new LoginView(primaryStage);
+		Session.getSession();
+		Session.stage = primaryStage;
+		new LoginView();
 		primaryStage.show();
 	}
 

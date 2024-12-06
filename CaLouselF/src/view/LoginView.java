@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import session.Session;
 
 public class LoginView extends AuthenticationView {
 
@@ -24,8 +24,9 @@ public class LoginView extends AuthenticationView {
 
 	private UserController userController = new UserController();
 
-	public LoginView(Stage stage) {
-		init(stage);
+	public LoginView() {
+
+		init();
 
 		VBox container = createContainer();
 		container.getChildren().addAll(createLabel("Login", 40), createTextFieldContainer(usernameField, "Username"),
@@ -40,12 +41,12 @@ public class LoginView extends AuthenticationView {
 		scene = new Scene(stackPane, getWindowWidth(), getWindowHeight());
 		scene.setFill(Color.WHITESMOKE);
 
-		stage.setScene(scene);
-		stage.setTitle("Login Page");
+		Session.stage.setScene(scene);
+		Session.stage.setTitle("Login Page");
 
 	}
 
-	private void init(Stage stage) {
+	private void init() {
 		usernameField = createTextField("Enter your username");
 		passwordField = createPasswordField("Enter your password");
 		loginButton = createButton("Login");
@@ -54,7 +55,7 @@ public class LoginView extends AuthenticationView {
 		errorLabel.setTextFill(Color.RED);
 
 		loginButton.setOnAction(event -> login(usernameField.getText(), passwordField.getText()));
-		registerButton.setOnAction(event -> goToRegisterView(stage));
+		registerButton.setOnAction(event -> goToRegisterView());
 
 	}
 
@@ -67,9 +68,9 @@ public class LoginView extends AuthenticationView {
 		}
 	}
 
-	private void goToRegisterView(Stage stage) {
+	private void goToRegisterView() {
 
-		new RegisterView(stage);
+		new RegisterView();
 
 	}
 
