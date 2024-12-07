@@ -3,7 +3,7 @@ package main;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import session.Session;
-import view.LoginView;
+import view.HomeView;
 
 public class Main extends Application {
 
@@ -17,7 +17,8 @@ public class Main extends Application {
 
 		Session.getSession();
 		Session.stage = primaryStage;
-		new LoginView();
+		// new LoginView();
+		new HomeView();
 		primaryStage.show();
 	}
 

@@ -25,7 +25,6 @@ public class LoginView extends AuthenticationView {
 	private UserController userController = new UserController();
 
 	public LoginView() {
-
 		init();
 
 		VBox container = createContainer();
