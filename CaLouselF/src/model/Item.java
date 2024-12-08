@@ -1,7 +1,8 @@
 package model;
 
 public class Item {
-	private String id, name, price, size, category, status, wishlist, offer_status, seller_id;
+	private String id, name, price, size, category, status, wishlist, offer_status, seller_id, offer_price,
+			offer_user_id;
 
 	public Item(String id, String name, String price, String size, String category, String seller_id) {
 		super();
@@ -12,13 +13,15 @@ public class Item {
 		this.category = category;
 		this.seller_id = seller_id;
 
-		this.status = "Available"; // available or unavailable
+		this.status = "Pending"; // available, pending, unavailable
 		this.wishlist = "Available"; // available or unavailable
 		this.offer_status = "Unlisted"; // Unlisted, pending, accepted
+		this.offer_price = "0";
+		this.offer_user_id = null;
 	}
 
 	public Item(String id, String name, String price, String size, String category, String status, String wishlist,
-			String offer_status, String seller_id) {
+			String offer_status, String seller_id, String offer_price, String offer_user_id) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -29,6 +32,24 @@ public class Item {
 		this.wishlist = wishlist;
 		this.offer_status = offer_status;
 		this.seller_id = seller_id;
+		this.offer_price = offer_price;
+		this.offer_user_id = offer_user_id;
+	}
+
+	public String getOffer_price() {
+		return offer_price;
+	}
+
+	public void setOffer_price(String offer_price) {
+		this.offer_price = offer_price;
+	}
+
+	public String getOffer_user_id() {
+		return offer_user_id;
+	}
+
+	public void setOffer_user_id(String offer_user_id) {
+		this.offer_user_id = offer_user_id;
 	}
 
 	public String getSize() {
@@ -105,9 +126,9 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", name=" + name + ", price=" + price + ", category=" + category + ", status="
-				+ status + ", wishlist=" + wishlist + ", offer_status=" + offer_status + ", seller_id=" + seller_id
-				+ "]";
+		return "Item [id=" + id + ", name=" + name + ", price=" + price + ", size=" + size + ", category=" + category
+				+ ", status=" + status + ", wishlist=" + wishlist + ", offer_status=" + offer_status + ", seller_id="
+				+ seller_id + ", offer_price=" + offer_price + ", offer_user_id=" + offer_user_id + "]";
 	}
 
 }

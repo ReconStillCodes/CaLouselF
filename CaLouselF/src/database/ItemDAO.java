@@ -30,9 +30,11 @@ public class ItemDAO {
 					String wishlist = rs.getString("Item_wishlist");
 					String offer_status = rs.getString("Item_offer_status");
 					String seller_id = rs.getString("Seller_ID");
+					String offer_price = rs.getString("Item_offer_price");
+					String offer_user_id = rs.getString("Item_offer_user_id");
 
 					Item item = new Item(item_id, name, price, size, category, status, wishlist, offer_status,
-							seller_id);
+							seller_id, offer_price, offer_user_id);
 					items.add(item);
 				}
 
@@ -62,9 +64,11 @@ public class ItemDAO {
 					String wishlist = rs.getString("Item_wishlist");
 					String offer_status = rs.getString("Item_offer_status");
 					String seller_id = rs.getString("Seller_ID");
+					String offer_price = rs.getString("Item_offer_price");
+					String offer_user_id = rs.getString("Item_offer_user_id");
 
 					Item item = new Item(item_id, name, price, size, category, status, wishlist, offer_status,
-							seller_id);
+							seller_id, offer_price, offer_user_id);
 					items.add(item);
 				}
 
@@ -94,9 +98,11 @@ public class ItemDAO {
 					String wishlist = rs.getString("Item_wishlist");
 					String offer_status = rs.getString("Item_offer_status");
 					String seller_id = rs.getString("Seller_ID");
+					String offer_price = rs.getString("Item_offer_price");
+					String offer_user_id = rs.getString("Item_offer_user_id");
 
 					Item item = new Item(item_id, name, price, size, category, status, wishlist, offer_status,
-							seller_id);
+							seller_id, offer_price, offer_user_id);
 					items.add(item);
 				}
 
@@ -127,9 +133,11 @@ public class ItemDAO {
 					String wishlist = rs.getString("Item_wishlist");
 					String offer_status = rs.getString("Item_offer_status");
 					String seller_id = rs.getString("Seller_ID");
+					String offer_price = rs.getString("Item_offer_price");
+					String offer_user_id = rs.getString("Item_offer_user_id");
 
 					Item item = new Item(item_id, name, price, size, category, status, wishlist, offer_status,
-							seller_id);
+							seller_id, offer_price, offer_user_id);
 					items.add(item);
 				}
 
@@ -155,7 +163,7 @@ public class ItemDAO {
 	}
 
 	public void insertItem(Item item) {
-		String query = "INSERT INTO item (Item_id, Item_name, Item_size, Item_price, Item_category, Item_status, Item_wishlist, Item_offer_status, Seller_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO item (Item_id, Item_name, Item_size, Item_price, Item_category, Item_status, Item_wishlist, Item_offer_status, Seller_ID, Item_offer_price, Item_offer_user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = connect.preparedStatement(query);
 
 		try {
@@ -168,6 +176,8 @@ public class ItemDAO {
 			ps.setString(7, item.getWishlist());
 			ps.setString(8, item.getOffer_status());
 			ps.setString(9, item.getSeller_id());
+			ps.setString(10, item.getOffer_price());
+			ps.setString(11, item.getOffer_user_id());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 
@@ -209,8 +219,11 @@ public class ItemDAO {
 					String wishlist = rs.getString("Item_wishlist");
 					String offer_status = rs.getString("Item_offer_status");
 					String seller_id = rs.getString("Seller_ID");
+					String offer_price = rs.getString("Item_offer_price");
+					String offer_user_id = rs.getString("Item_offer_user_id");
 
-					return new Item(item_id, name, price, size, category, status, wishlist, offer_status, seller_id);
+					return new Item(item_id, name, price, size, category, status, wishlist, offer_status, seller_id,
+							offer_price, offer_user_id);
 				}
 
 			}

@@ -119,7 +119,7 @@ public class EditItemView extends MasterView {
 		cancelButton.setMaxWidth(150);
 		cancelButton.setOnAction(event -> goToHome());
 
-		submitButton = new CustomButton("Add Item", Color.BLACK);
+		submitButton = new CustomButton("Edit Item", Color.BLACK);
 		submitButton.setMaxWidth(150);
 		submitButton.setOnAction(event -> editItem());
 
