@@ -1,31 +1,41 @@
 package model;
 
 public class Item {
-	private String id, name, price, category, status, wishlist, offer_status, seller_id;
+	private String id, name, price, size, category, status, wishlist, offer_status, seller_id;
 
-	public Item(String id, String name, String price, String category, String seller_id) {
+	public Item(String id, String name, String price, String size, String category, String seller_id) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.size = size;
 		this.category = category;
 
 		this.status = "Available"; // available or unavailable
 		this.wishlist = "Available"; // available or unavailable
-		this.offer_status = "Idle"; // idle, pending, accepted
+		this.offer_status = "Unlisted"; // Unlisted, pending, accepted
 	}
 
-	public Item(String id, String name, String price, String category, String status, String wishlist,
+	public Item(String id, String name, String price, String size, String category, String status, String wishlist,
 			String offer_status, String seller_id) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.size = size;
 		this.category = category;
 		this.status = status;
 		this.wishlist = wishlist;
 		this.offer_status = offer_status;
 		this.seller_id = seller_id;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 
 	public String getId() {
