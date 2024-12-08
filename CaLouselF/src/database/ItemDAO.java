@@ -75,4 +75,82 @@ public class ItemDAO {
 		}
 		return items;
 	}
+
+	public List<Item> browseAvailableItems(String item_name) {
+		String query = "SELECT * FROM item WHERE Item_status LIKE \"Available\" AND Item_name LIKE ?";
+		List<Item> items = new ArrayList<Item>();
+
+		try (PreparedStatement ps = connect.preparedStatement(query)) {
+			ps.setString(1, "%" + item_name + "%");
+			try (ResultSet rs = ps.executeQuery()) {
+
+				while (rs != null && rs.next()) {
+					String item_id = rs.getString("Item_id");
+					String name = rs.getString("Item_name");
+					String size = rs.getString("Item_size");
+					String price = rs.getString("Item_price");
+					String category = rs.getString("Item_category");
+					String status = rs.getString("Item_status");
+					String wishlist = rs.getString("Item_wishlist");
+					String offer_status = rs.getString("Item_offer_status");
+					String seller_id = rs.getString("Seller_ID");
+
+					Item item = new Item(item_id, name, price, size, category, status, wishlist, offer_status,
+							seller_id);
+					items.add(item);
+				}
+
+			}
+
+		} catch (SQLException e) {
+			System.out.println("No Item found");
+		}
+		return items;
+	}
+
+	public List<Item> browseSellerItems(String sellerId, String item_name) {
+		String query = "SELECT * FROM item WHERE Seller_ID LIKE ? AND Item_name LIKE ?  ";
+		List<Item> items = new ArrayList<Item>();
+
+		try (PreparedStatement ps = connect.preparedStatement(query)) {
+			ps.setString(1, sellerId);
+			ps.setString(2, "%" + item_name + "%");
+			try (ResultSet rs = ps.executeQuery()) {
+
+				while (rs != null && rs.next()) {
+					String item_id = rs.getString("Item_id");
+					String name = rs.getString("Item_name");
+					String size = rs.getString("Item_size");
+					String price = rs.getString("Item_price");
+					String category = rs.getString("Item_category");
+					String status = rs.getString("Item_status");
+					String wishlist = rs.getString("Item_wishlist");
+					String offer_status = rs.getString("Item_offer_status");
+					String seller_id = rs.getString("Seller_ID");
+
+					Item item = new Item(item_id, name, price, size, category, status, wishlist, offer_status,
+							seller_id);
+					items.add(item);
+				}
+
+			}
+
+		} catch (SQLException e) {
+			System.out.println("No Item found");
+		}
+		return items;
+	}
+
+	public void deleteItem(String id) {
+		String query = "DELETE FROM item WHERE item_id LIKE ?";
+		PreparedStatement ps = connect.preparedStatement(query);
+
+		try {
+			ps.setString(1, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+
+			System.out.println("Fail to delete item");
+		}
+	}
 }

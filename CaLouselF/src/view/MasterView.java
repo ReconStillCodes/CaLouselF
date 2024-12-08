@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -134,6 +133,7 @@ public abstract class MasterView {
 		vbox.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(10), null)));
 		vbox.setEffect(createDropShadow());
 		vbox.setMaxWidth(300);
+		vbox.setPrefWidth(300);
 
 		Label categoryLabel = createDesc(category + " | " + size, 14, Color.GRAY);
 		Label nameLabel = createTitle(name, 20);
@@ -141,44 +141,6 @@ public abstract class MasterView {
 
 		vbox.getChildren().addAll(categoryLabel, nameLabel, priceLabel);
 
-		if (Session.user.getRole().toLowerCase().equals("buyer")) {
-			vbox = createBuyerItemCard(vbox);
-		} else if (Session.user.getRole().toLowerCase().equals("seller")) {
-			vbox = createSellerItemCard(vbox);
-		} else {
-
-		}
-
-		return vbox;
-	}
-
-	protected VBox createBuyerItemCard(VBox vbox) {
-		Button buyButton = createButtonCard("Buy", Color.BLACK);
-		Button wishButton = createButtonCard("Wish", Color.CORNFLOWERBLUE);
-		Button offerButton = createButtonCard("Offer", Color.BLACK);
-
-		HBox buttonContainer = new HBox(5);
-		buttonContainer.setMaxWidth(300);
-		buttonContainer.getChildren().addAll(buyButton, wishButton);
-
-		TextField offerField = new TextField();
-		offerField.setPromptText("Enter your Offer");
-
-		vbox.getChildren().addAll(buttonContainer, offerField, offerButton);
-		VBox.setMargin(buttonContainer, new Insets(30, 0, 20, 0));
-		return vbox;
-	}
-
-	protected VBox createSellerItemCard(VBox vbox) {
-		Button editButton = createButtonCard("Edit", Color.CORNFLOWERBLUE);
-		Button deleteButton = createButtonCard("Delete", Color.RED);
-
-		HBox buttonContainer = new HBox(5);
-		buttonContainer.setMaxWidth(300);
-		buttonContainer.getChildren().addAll(editButton, deleteButton);
-
-		vbox.getChildren().addAll(buttonContainer);
-		VBox.setMargin(buttonContainer, new Insets(30, 0, 0, 0));
 		return vbox;
 	}
 
