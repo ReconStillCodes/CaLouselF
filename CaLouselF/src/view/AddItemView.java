@@ -29,8 +29,10 @@ public class AddItemView extends MasterView {
 
 	public AddItemView() {
 
-		if (!isSessionValid())
+		if (!isSessionValid()) {
+			new LoginView();
 			return;
+		}
 
 		initPage();
 	}

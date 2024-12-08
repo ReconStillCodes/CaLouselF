@@ -30,9 +30,10 @@ public class EditItemView extends MasterView {
 	private Item item;
 
 	public EditItemView(String item_id) {
-		if (!isSessionValid())
+		if (!isSessionValid()) {
+			new LoginView();
 			return;
-
+		}
 		if (!getItem(item_id)) {
 			return;
 		}

@@ -14,6 +14,7 @@ import session.Session;
 import view.AddItemView;
 import view.HomeView;
 import view.LoginView;
+import view.WishlistView;
 
 public class NavBar extends HBox {
 
@@ -47,6 +48,8 @@ public class NavBar extends HBox {
 	private void navbarBuyer() {
 		Hyperlink wishlistButton = createLink("Wishlists");
 		Hyperlink historyButton = createLink("History");
+
+		wishlistButton.setOnAction(event -> goToWishlist());
 
 		getChildren().addAll(homeButton, wishlistButton, historyButton, logoutButton);
 	}
@@ -87,5 +90,9 @@ public class NavBar extends HBox {
 
 	protected void goToAddItem() {
 		new AddItemView();
+	}
+
+	protected void goToWishlist() {
+		new WishlistView();
 	}
 }

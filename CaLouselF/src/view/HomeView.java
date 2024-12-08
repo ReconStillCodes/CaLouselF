@@ -5,6 +5,7 @@ import java.util.List;
 import component.CustomButton;
 import component.ItemCard;
 import controller.ItemController;
+import controller.WishlistController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,16 +25,19 @@ import session.Session;
 public class HomeView extends MasterView {
 
 	private ItemController itemController = new ItemController();
+	private WishlistController wishlistController = new WishlistController();
 	private TextField searchField;
 	private Button searchButton;
 	private GridPane browseContainer;
 
 	public HomeView() {
 		Session.getSession();
-		Session.user = new User("UD001", "John Doe", "12341234", "+62123456789", "America", "Seller");
+		Session.user = new User("UD002", "John Doe", "12341234", "+62123456789", "America", "Buyer");
 
-		if (!isSessionValid())
+		if (!isSessionValid()) {
+			new LoginView();
 			return;
+		}
 
 		initPage();
 	}
@@ -138,6 +142,8 @@ public class HomeView extends MasterView {
 		Button wishButton = new CustomButton("Wish", Color.CORNFLOWERBLUE);
 		Button offerButton = new CustomButton("Offer", Color.BLACK);
 
+		wishButton.setOnAction(event -> wishlistHandler(item_id));
+
 		HBox buttonContainer = new HBox(5);
 		buttonContainer.setMaxWidth(300);
 		buttonContainer.getChildren().addAll(buyButton, wishButton);
@@ -176,6 +182,10 @@ public class HomeView extends MasterView {
 	private void deleteHandler(String item_id) {
 		itemController.deleteItem(item_id);
 		initItemCards(itemController.viewItem());
+	}
+
+	private void wishlistHandler(String item_id) {
+		wishlistController.addWishlist(item_id, Session.user.getUser_id());
 	}
 
 }

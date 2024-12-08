@@ -195,7 +195,7 @@ public class ItemDAO {
 				return id;
 			}
 		} catch (SQLException e) {
-			System.out.println("No User Found");
+			System.out.println("No Item Found");
 		}
 
 		return null;
