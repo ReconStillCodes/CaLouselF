@@ -74,7 +74,6 @@ public class UserDAO {
 			ps.setString(5, user.getAddress());
 			ps.setString(6, user.getRole());
 			ps.executeUpdate();
-			System.out.println("Insert User");
 		} catch (SQLException e) {
 
 			System.out.println("Fail Insert User");

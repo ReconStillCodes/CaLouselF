@@ -10,6 +10,7 @@ public class Item {
 		this.price = price;
 		this.size = size;
 		this.category = category;
+		this.seller_id = seller_id;
 
 		this.status = "Available"; // available or unavailable
 		this.wishlist = "Available"; // available or unavailable

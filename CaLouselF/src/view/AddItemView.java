@@ -4,6 +4,7 @@ import component.CustomButton;
 import component.CustomDropShadow;
 import component.CustomInputContainer;
 import component.CustomTextField;
+import controller.ItemController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,6 +25,7 @@ public class AddItemView extends MasterView {
 	private TextField nameField, categoryField, sizeField, priceField;
 	private Label errorLabel;
 	private Button cancelButton, submitButton;
+	private ItemController itemController = new ItemController();
 
 	public AddItemView() {
 
@@ -101,6 +103,7 @@ public class AddItemView extends MasterView {
 
 		submitButton = new CustomButton("Add Item", Color.BLACK);
 		submitButton.setMaxWidth(150);
+		submitButton.setOnAction(event -> uploadItem());
 
 		hbox.setAlignment(Pos.TOP_RIGHT);
 		hbox.getChildren().addAll(cancelButton, submitButton);
@@ -109,6 +112,20 @@ public class AddItemView extends MasterView {
 
 	private void goToHome() {
 		new HomeView();
+	}
+
+	private void uploadItem() {
+
+		boolean isValid = itemController.uploadItem(nameField.getText(), categoryField.getText(), sizeField.getText(),
+				priceField.getText());
+
+		if (!isValid) {
+			errorLabel.setText("Item's Credential is Invalid");
+		} else {
+			errorLabel.setText("");
+			goToHome();
+		}
+
 	}
 
 }

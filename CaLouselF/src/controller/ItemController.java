@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import database.ItemDAO;
-import database.UserDAO;
 import model.Item;
 import session.Session;
 
 public class ItemController {
 
-	private final UserDAO userDAO = new UserDAO();
 	private final ItemDAO itemDAO = new ItemDAO();
 
 	public List<Item> viewItem() {
@@ -43,6 +41,58 @@ public class ItemController {
 
 	public void deleteItem(String id) {
 		itemDAO.deleteItem(id);
+	}
+
+	public boolean uploadItem(String name, String category, String size, String price) {
+		if (!checkItemValidation(name, category, size, price))
+			return false;
+
+		Item item = new Item(generateID(), name, price, size, category, Session.user.getUser_id());
+		itemDAO.insertItem(item);
+		return true;
+	}
+
+	private boolean checkItemValidation(String name, String category, String size, String price) {
+		if (!checkInputEmpty(name) || name.length() < 3)
+			return false;
+
+		if (!checkInputEmpty(category) || category.length() < 3)
+			return false;
+
+		if (!checkInputEmpty(size))
+			return false;
+
+		if (!checkInputEmpty(price))
+			return false;
+
+		for (int i = 0; i < price.length(); i++) {
+			if (!Character.isDigit(price.charAt(i)))
+				return false;
+		}
+
+		if (Double.parseDouble(price) <= 0)
+			return false;
+
+		return true;
+	}
+
+	private boolean checkInputEmpty(String str) {
+		if (str == null || str.isEmpty() || str.isBlank() || str.length() <= 0)
+			return false;
+
+		return true;
+	}
+
+	private String generateID() {
+		String latestID = itemDAO.getMaxUserID();
+
+		if (!checkInputEmpty(latestID)) {
+			return "IT001";
+		}
+
+		int number = Integer.parseInt(latestID.substring(2)) + 1;
+
+		return String.format("IT%03d", number);
 	}
 
 }

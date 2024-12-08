@@ -153,4 +153,41 @@ public class ItemDAO {
 			System.out.println("Fail to delete item");
 		}
 	}
+
+	public void insertItem(Item item) {
+		String query = "INSERT INTO item (Item_id, Item_name, Item_size, Item_price, Item_category, Item_status, Item_wishlist, Item_offer_status, Seller_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement ps = connect.preparedStatement(query);
+
+		try {
+			ps.setString(1, item.getId());
+			ps.setString(2, item.getName());
+			ps.setString(3, item.getSize());
+			ps.setString(4, item.getPrice());
+			ps.setString(5, item.getCategory());
+			ps.setString(6, item.getStatus());
+			ps.setString(7, item.getWishlist());
+			ps.setString(8, item.getOffer_status());
+			ps.setString(9, item.getSeller_id());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+
+			System.out.println("Fail Insert Item");
+		}
+	}
+
+	public String getMaxUserID() {
+		String query = "SELECT MAX(Item_id) FROM item";
+		ResultSet rs = connect.execQuery(query);
+
+		try {
+			if (rs != null && rs.next()) {
+				String id = rs.getString(1);
+				return id;
+			}
+		} catch (SQLException e) {
+			System.out.println("No User Found");
+		}
+
+		return null;
+	}
 }
