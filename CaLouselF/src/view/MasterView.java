@@ -2,6 +2,8 @@ package view;
 
 import component.NavBar;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
@@ -10,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -20,6 +23,9 @@ public abstract class MasterView {
 
 	protected final double WindowWidth = Screen.getPrimary().getVisualBounds().getWidth();
 	protected final double WindowHeight = Screen.getPrimary().getVisualBounds().getHeight();
+
+	protected BorderPane root;
+	protected Scene scene;
 
 	protected abstract Boolean isSessionValid();
 
@@ -38,9 +44,9 @@ public abstract class MasterView {
 		return root;
 	}
 
-	protected VBox createBody() {
+	protected VBox createBody(int maxWidth) {
 		VBox body = new VBox(20);
-		body.setMaxWidth(1300);
+		body.setMaxWidth(maxWidth);
 		return body;
 	}
 
@@ -64,6 +70,13 @@ public abstract class MasterView {
 		scrollPane.setPannable(true);
 		scrollPane.setPadding(new Insets(1, 0, 0, 0));
 		return scrollPane;
+	}
+
+	protected StackPane createWrapper() {
+		StackPane wrapper = new StackPane();
+		wrapper.setPadding(new Insets(20, 0, 50, 0));
+		wrapper.setAlignment(Pos.TOP_CENTER);
+		return wrapper;
 	}
 
 }

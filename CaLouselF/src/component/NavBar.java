@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import session.Session;
+import view.AddItemView;
 import view.HomeView;
 import view.LoginView;
 
@@ -54,6 +55,8 @@ public class NavBar extends HBox {
 		Hyperlink offersButton = createLink("Offers");
 		Hyperlink addItemsButton = createLink("Add Items");
 
+		addItemsButton.setOnAction(event -> goToAddItem());
+
 		getChildren().addAll(homeButton, offersButton, addItemsButton, logoutButton);
 	}
 
@@ -80,5 +83,9 @@ public class NavBar extends HBox {
 	protected void logout() {
 		Session.user = null;
 		new LoginView();
+	}
+
+	protected void goToAddItem() {
+		new AddItemView();
 	}
 }

@@ -6,13 +6,11 @@ import component.CustomButton;
 import component.ItemCard;
 import controller.ItemController;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -24,8 +22,7 @@ import model.User;
 import session.Session;
 
 public class HomeView extends MasterView {
-	private Scene scene;
-	private BorderPane root;
+
 	private ItemController itemController = new ItemController();
 	private TextField searchField;
 	private Button searchButton;
@@ -63,7 +60,7 @@ public class HomeView extends MasterView {
 
 	@Override
 	protected ScrollPane initBody() {
-		VBox body = createBody();
+		VBox body = createBody(1300);
 
 		initItemCards(itemController.viewItem());
 
@@ -79,9 +76,8 @@ public class HomeView extends MasterView {
 
 		body.getChildren().addAll(title, searchContainer, browseContainer);
 
-		StackPane wrapper = new StackPane(body);
-		wrapper.setPadding(new Insets(20, 0, 50, 0));
-		wrapper.setAlignment(Pos.TOP_CENTER);
+		StackPane wrapper = createWrapper();
+		wrapper.getChildren().add(body);
 
 		ScrollPane scrollPane = createScrollPane();
 		scrollPane.setContent(wrapper);
