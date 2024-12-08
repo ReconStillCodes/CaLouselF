@@ -157,6 +157,7 @@ public class HomeView extends MasterView {
 		Button editButton = new CustomButton("Edit", Color.BLACK);
 		Button deleteButton = new CustomButton("Delete", Color.RED);
 
+		editButton.setOnAction(event -> editHandler(item_id));
 		deleteButton.setOnAction(event -> deleteHandler(item_id));
 
 		HBox buttonContainer = new HBox(5);
@@ -166,6 +167,10 @@ public class HomeView extends MasterView {
 		itemCard.addHBox(buttonContainer);
 		itemCard.setMargin(buttonContainer, new Insets(30, 0, 0, 0));
 		return itemCard;
+	}
+
+	private void editHandler(String item_id) {
+		new EditItemView(item_id);
 	}
 
 	private void deleteHandler(String item_id) {

@@ -95,4 +95,8 @@ public class ItemController {
 		return String.format("IT%03d", number);
 	}
 
+	public Item getItemByID(String item_id) {
+		return itemDAO.getItemByID(item_id);
+	}
+
 }
