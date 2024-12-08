@@ -2,6 +2,8 @@ package view;
 
 import java.util.List;
 
+import component.CustomButton;
+import component.ItemCard;
 import controller.ItemController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,19 +35,30 @@ public class HomeView extends MasterView {
 		Session.getSession();
 		Session.user = new User("UD001", "John Doe", "12341234", "+62123456789", "America", "Seller");
 
-		if (Session.user == null) {
-			new LoginView();
+		if (!isSessionValid())
 			return;
-		}
 
+		initPage();
+	}
+
+	@Override
+	protected Boolean isSessionValid() {
+		if (Session.user == null)
+			return false;
+		return true;
+	}
+
+	@Override
+	protected void initPage() {
 		ScrollPane body = initBody();
 
 		root = createRoot();
 		root.setCenter(body);
 
-		scene = new Scene(root, getWindowWidth(), getWindowHeight());
+		scene = new Scene(root, WindowWidth, WindowHeight);
 		Session.stage.setScene(scene);
 		Session.stage.setTitle("Home");
+
 	}
 
 	@Override
@@ -84,7 +97,7 @@ public class HomeView extends MasterView {
 		searchField.setPadding(new Insets(5, 10, 5, 10));
 		searchField.setPrefWidth(1300);
 
-		searchButton = createButtonCard("Search", Color.BLACK);
+		searchButton = new CustomButton("Search", Color.BLACK);
 		searchButton.setMinWidth(100);
 		searchButton.setOnAction(event -> search(searchField.getText()));
 
@@ -110,7 +123,7 @@ public class HomeView extends MasterView {
 			int row = i / columns;
 			int col = i % columns;
 
-			VBox itemCard = createItemCard(items.get(i).getCategory(), items.get(i).getName(), items.get(i).getSize(),
+			ItemCard itemCard = new ItemCard(items.get(i).getCategory(), items.get(i).getName(), items.get(i).getSize(),
 					items.get(i).getPrice());
 
 			if (Session.user.getRole().toLowerCase().equals("buyer")) {
@@ -124,10 +137,10 @@ public class HomeView extends MasterView {
 
 	}
 
-	private VBox createBuyerItemCard(VBox vbox, String item_id) {
-		Button buyButton = createButtonCard("Buy", Color.BLACK);
-		Button wishButton = createButtonCard("Wish", Color.CORNFLOWERBLUE);
-		Button offerButton = createButtonCard("Offer", Color.BLACK);
+	private ItemCard createBuyerItemCard(ItemCard itemCard, String item_id) {
+		Button buyButton = new CustomButton("Buy", Color.BLACK);
+		Button wishButton = new CustomButton("Wish", Color.CORNFLOWERBLUE);
+		Button offerButton = new CustomButton("Offer", Color.BLACK);
 
 		HBox buttonContainer = new HBox(5);
 		buttonContainer.setMaxWidth(300);
@@ -136,14 +149,17 @@ public class HomeView extends MasterView {
 		TextField offerField = new TextField();
 		offerField.setPromptText("Enter your Offer");
 
-		vbox.getChildren().addAll(buttonContainer, offerField, offerButton);
-		VBox.setMargin(buttonContainer, new Insets(30, 0, 20, 0));
-		return vbox;
+		itemCard.addHBox(buttonContainer);
+		itemCard.addTextField(offerField);
+		itemCard.addButton(offerButton);
+
+		itemCard.setMargin(buttonContainer, new Insets(30, 0, 20, 0));
+		return itemCard;
 	}
 
-	private VBox createSellerItemCard(VBox vbox, String item_id) {
-		Button editButton = createButtonCard("Edit", Color.BLACK);
-		Button deleteButton = createButtonCard("Delete", Color.RED);
+	private ItemCard createSellerItemCard(ItemCard itemCard, String item_id) {
+		Button editButton = new CustomButton("Edit", Color.BLACK);
+		Button deleteButton = new CustomButton("Delete", Color.RED);
 
 		deleteButton.setOnAction(event -> deleteHandler(item_id));
 
@@ -151,9 +167,9 @@ public class HomeView extends MasterView {
 		buttonContainer.setMaxWidth(300);
 		buttonContainer.getChildren().addAll(editButton, deleteButton);
 
-		vbox.getChildren().addAll(buttonContainer);
-		VBox.setMargin(buttonContainer, new Insets(30, 0, 0, 0));
-		return vbox;
+		itemCard.addHBox(buttonContainer);
+		itemCard.setMargin(buttonContainer, new Insets(30, 0, 0, 0));
+		return itemCard;
 	}
 
 	private void deleteHandler(String item_id) {
