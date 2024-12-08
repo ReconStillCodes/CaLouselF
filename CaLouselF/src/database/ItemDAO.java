@@ -219,4 +219,21 @@ public class ItemDAO {
 		}
 		return null;
 	}
+
+	public void editItem(String name, String category, String size, String price, String item_id) {
+		String query = "UPDATE item SET Item_name = ?, Item_category = ?, Item_size = ?, Item_price = ? WHERE Item_id = ?";
+		PreparedStatement ps = connect.preparedStatement(query);
+
+		try {
+			ps.setString(1, name);
+			ps.setString(2, category);
+			ps.setString(3, size);
+			ps.setString(4, price);
+			ps.setString(5, item_id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+
+			System.out.println("Fail Edit Item");
+		}
+	}
 }

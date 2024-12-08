@@ -133,7 +133,15 @@ public class EditItemView extends MasterView {
 	}
 
 	private void editItem() {
+		boolean isValid = itemController.editItem(nameField.getText(), categoryField.getText(), sizeField.getText(),
+				priceField.getText(), item.getId());
 
+		if (!isValid) {
+			errorLabel.setText("Item's Credential is Invalid");
+		} else {
+			errorLabel.setText("");
+			new HomeView();
+		}
 	}
 
 }

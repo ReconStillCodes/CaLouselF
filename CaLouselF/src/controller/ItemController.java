@@ -99,4 +99,12 @@ public class ItemController {
 		return itemDAO.getItemByID(item_id);
 	}
 
+	public Boolean editItem(String name, String category, String size, String price, String item_id) {
+		if (!checkItemValidation(name, category, size, price))
+			return false;
+
+		itemDAO.editItem(name, category, size, price, item_id);
+		return true;
+	}
+
 }
