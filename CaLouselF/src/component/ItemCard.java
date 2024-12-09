@@ -56,4 +56,8 @@ public class ItemCard extends VBox {
 		getChildren().addAll(textField);
 	}
 
+	public void addLabel(Label label) {
+		getChildren().addAll(label);
+	}
+
 }

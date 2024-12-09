@@ -3,6 +3,8 @@ package database;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Transaction;
 
@@ -40,5 +42,29 @@ public class TransactionDAO {
 		}
 
 		return null;
+	}
+
+	public List<Transaction> getTransactionByUserID(String userId) {
+		String query = "SELECT * FROM transaction WHERE user_id LIKE ?";
+
+		List<Transaction> transactions = new ArrayList<Transaction>();
+
+		try (PreparedStatement ps = connect.preparedStatement(query)) {
+			ps.setString(1, userId);
+
+			try (ResultSet rs = ps.executeQuery()) {
+
+				while (rs != null && rs.next()) {
+					String transaction_id = rs.getString("transaction_id");
+					String user_id = rs.getString("user_id");
+					String item_id = rs.getString("Item_id");
+					transactions.add(new Transaction(transaction_id, user_id, item_id));
+				}
+
+			}
+		} catch (SQLException e) {
+			System.out.println("No Transaction found");
+		}
+		return transactions;
 	}
 }

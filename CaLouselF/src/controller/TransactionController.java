@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import database.TransactionDAO;
 import model.Transaction;
 
@@ -22,6 +25,12 @@ public class TransactionController {
 		int number = Integer.parseInt(latestID.substring(2)) + 1;
 
 		return String.format("TR%03d", number);
+	}
+
+	public List<Transaction> viewHistory(String userId) {
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		transactions = transactionDAO.getTransactionByUserID(userId);
+		return transactions;
 	}
 
 }

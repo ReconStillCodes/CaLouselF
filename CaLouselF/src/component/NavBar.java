@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import session.Session;
 import view.AddItemView;
+import view.HistoryView;
 import view.HomeView;
 import view.LoginView;
 import view.WishlistView;
@@ -50,6 +51,7 @@ public class NavBar extends HBox {
 		Hyperlink historyButton = createLink("History");
 
 		wishlistButton.setOnAction(event -> goToWishlist());
+		historyButton.setOnAction(vent -> goToHistory());
 
 		getChildren().addAll(homeButton, wishlistButton, historyButton, logoutButton);
 	}
@@ -94,5 +96,9 @@ public class NavBar extends HBox {
 
 	protected void goToWishlist() {
 		new WishlistView();
+	}
+
+	protected void goToHistory() {
+		new HistoryView();
 	}
 }
