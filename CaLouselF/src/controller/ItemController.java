@@ -111,4 +111,11 @@ public class ItemController {
 		itemDAO.updatePurchaseItem(item_id);
 	}
 
+	public List<Item> viewRequestItem() {
+
+		List<Item> items = new ArrayList<Item>();
+		items = itemDAO.getAllPendingItems();
+		return items;
+	}
+
 }

@@ -262,4 +262,38 @@ public class ItemDAO {
 			System.out.println("Fail Edit Item");
 		}
 	}
+
+	public List<Item> getAllPendingItems() {
+		String query = "SELECT * FROM item WHERE Item_status LIKE \"Pending\" ";
+		List<Item> items = new ArrayList<Item>();
+
+		try (PreparedStatement ps = connect.preparedStatement(query)) {
+
+			try (ResultSet rs = ps.executeQuery()) {
+
+				while (rs != null && rs.next()) {
+					String item_id = rs.getString("Item_id");
+					String name = rs.getString("Item_name");
+					String size = rs.getString("Item_size");
+					String price = rs.getString("Item_price");
+					String category = rs.getString("Item_category");
+					String status = rs.getString("Item_status");
+					String wishlist = rs.getString("Item_wishlist");
+					String offer_status = rs.getString("Item_offer_status");
+					String seller_id = rs.getString("Seller_ID");
+					String offer_price = rs.getString("Item_offer_price");
+					String offer_user_id = rs.getString("Item_offer_user_id");
+
+					Item item = new Item(item_id, name, price, size, category, status, wishlist, offer_status,
+							seller_id, offer_price, offer_user_id);
+					items.add(item);
+				}
+
+			}
+
+		} catch (SQLException e) {
+			System.out.println("No Item found");
+		}
+		return items;
+	}
 }

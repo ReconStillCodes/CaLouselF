@@ -34,7 +34,7 @@ public class HomeView extends MasterView {
 
 	public HomeView() {
 		Session.getSession();
-		Session.user = new User("UD002", "John Doe", "12341234", "+62123456789", "America", "Buyer");
+		Session.user = new User("UD000", "John Doe", "12341234", "+62123456789", "America", "Admin");
 
 		if (!isSessionValid()) {
 			new LoginView();

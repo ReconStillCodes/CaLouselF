@@ -15,6 +15,7 @@ import view.AddItemView;
 import view.HistoryView;
 import view.HomeView;
 import view.LoginView;
+import view.RequestView;
 import view.WishlistView;
 
 public class NavBar extends HBox {
@@ -68,6 +69,8 @@ public class NavBar extends HBox {
 	private void navbarAdmin() {
 		Hyperlink requestsButton = createLink("Requests");
 
+		requestsButton.setOnAction(event -> goToRequest());
+
 		getChildren().addAll(homeButton, requestsButton, logoutButton);
 	}
 
@@ -100,5 +103,9 @@ public class NavBar extends HBox {
 
 	protected void goToHistory() {
 		new HistoryView();
+	}
+
+	protected void goToRequest() {
+		new RequestView();
 	}
 }
