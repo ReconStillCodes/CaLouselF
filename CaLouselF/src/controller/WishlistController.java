@@ -39,7 +39,11 @@ public class WishlistController {
 	}
 
 	public void removeWishlist(String id) {
-		wishlistDAO.deleteItem(id);
+		wishlistDAO.deleteWishlist(id);
+	}
+
+	public void removeWishlistAfterPruchase(String itemId) {
+		wishlistDAO.deleteWishlistByItemID(itemId);
 	}
 
 	public List<Wishlist> viewWishlist(String userId) {

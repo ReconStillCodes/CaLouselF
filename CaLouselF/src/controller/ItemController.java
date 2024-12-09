@@ -15,7 +15,7 @@ public class ItemController {
 
 		List<Item> items = new ArrayList<Item>();
 
-		if (Session.user.getRole().toString().equals("seller")) {
+		if (Session.user.getRole().toString().toLowerCase().equals("seller")) {
 			items = itemDAO.getAllSellerItems(Session.user.getUser_id());
 		} else {
 			items = itemDAO.getAllAvailableItems();
@@ -145,6 +145,24 @@ public class ItemController {
 		}
 
 		itemDAO.makeOffer(offer, user_id, item_id);
+	}
+
+	public List<Item> viewOffer(String seller_id) {
+		List<Item> items = new ArrayList<Item>();
+		items = itemDAO.getAllOfferItems(seller_id);
+		return items;
+	}
+
+	public void acceptOffer(String price, String item_id) {
+		itemDAO.acceptOffer(price, item_id);
+	}
+
+	public void declineOffer(String reason, String item_id) {
+		if (!checkInputEmpty(reason)) {
+			return;
+		}
+
+		itemDAO.declineOffer(item_id);
 	}
 
 }

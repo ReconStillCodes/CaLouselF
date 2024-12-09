@@ -21,7 +21,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.Item;
-import model.User;
 import session.Session;
 
 public class HomeView extends MasterView {
@@ -35,7 +34,7 @@ public class HomeView extends MasterView {
 
 	public HomeView() {
 		Session.getSession();
-		Session.user = new User("UD002", "John Doe", "12341234", "+62123456789", "America", "Buyer");
+//		Session.user = new User("UD001", "John Doe", "12341234", "+62123456789", "America", "Seller");
 
 		if (!isSessionValid()) {
 			new LoginView();
@@ -195,7 +194,7 @@ public class HomeView extends MasterView {
 	private void purchaseHandler(String item_id) {
 		transactionController.purchaseItem(Session.user.getUser_id(), item_id);
 		itemController.updatePurchaseItem(item_id);
-
+		wishlistController.removeWishlistAfterPruchase(item_id);
 		initItemCards(itemController.viewItem());
 	}
 

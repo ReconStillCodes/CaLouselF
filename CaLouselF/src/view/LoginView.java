@@ -1,5 +1,8 @@
 package view;
 
+import component.CustomInputContainer;
+import component.CustomPasswordField;
+import component.CustomTextField;
 import controller.UserController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -27,9 +30,30 @@ public class LoginView extends AuthenticationView {
 	public LoginView() {
 		init();
 
+		initPage();
+
+	}
+
+	@Override
+	protected void init() {
+		usernameField = new CustomTextField("Enter your username");
+		passwordField = new CustomPasswordField("Enter your password");
+		loginButton = createButton("Login");
+		registerButton = createHyperlink("Sign Up Now");
+		errorLabel = createLabel("", 12);
+		errorLabel.setTextFill(Color.RED);
+
+		loginButton.setOnAction(event -> login(usernameField.getText(), passwordField.getText()));
+		registerButton.setOnAction(event -> goToRegisterView());
+
+	}
+
+	@Override
+	protected void initPage() {
 		VBox container = createContainer();
-		container.getChildren().addAll(createLabel("Login", 40), createTextFieldContainer(usernameField, "Username"),
-				createPasswordFieldContainer(passwordField, "Password"), errorLabel, loginButton,
+
+		container.getChildren().addAll(createLabel("Login", 40), new CustomInputContainer("Username", usernameField),
+				new CustomInputContainer("Password", passwordField), errorLabel, loginButton,
 				createLabel("Dont't have an account?", 14), registerButton);
 
 		VBox.setMargin(loginButton, new Insets(40, 0, 20, 0));
@@ -45,19 +69,6 @@ public class LoginView extends AuthenticationView {
 
 	}
 
-	private void init() {
-		usernameField = createTextField("Enter your username");
-		passwordField = createPasswordField("Enter your password");
-		loginButton = createButton("Login");
-		registerButton = createHyperlink("Sign Up Now");
-		errorLabel = createLabel("", 12);
-		errorLabel.setTextFill(Color.RED);
-
-		loginButton.setOnAction(event -> login(usernameField.getText(), passwordField.getText()));
-		registerButton.setOnAction(event -> goToRegisterView());
-
-	}
-
 	private void login(String username, String password) {
 		Boolean isValid = userController.login(username, password);
 
@@ -65,6 +76,7 @@ public class LoginView extends AuthenticationView {
 			errorLabel.setText("Invalid Credential");
 		} else {
 			errorLabel.setText("");
+			new HomeView();
 		}
 	}
 

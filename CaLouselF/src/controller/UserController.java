@@ -36,7 +36,6 @@ public class UserController {
 		}
 
 		User user = new User(generateID(), username, password, phone, address, role);
-		System.out.println(user.toString());
 		userDAO.insertUser(user);
 		return true;
 	}
@@ -72,9 +71,6 @@ public class UserController {
 		if (user != null) {
 			return false;
 		}
-
-		// Redirect
-		// Buat Session
 
 		return true;
 	}

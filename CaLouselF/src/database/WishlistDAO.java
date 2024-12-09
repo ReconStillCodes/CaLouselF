@@ -67,12 +67,25 @@ public class WishlistDAO {
 		return null;
 	}
 
-	public void deleteItem(String id) {
+	public void deleteWishlist(String id) {
 		String query = "DELETE FROM wishlist WHERE wishlist_id LIKE ?";
 		PreparedStatement ps = connect.preparedStatement(query);
 
 		try {
 			ps.setString(1, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+
+			System.out.println("Fail to delete wishlist");
+		}
+	}
+
+	public void deleteWishlistByItemID(String itemId) {
+		String query = "DELETE FROM wishlist WHERE Item_id LIKE ?";
+		PreparedStatement ps = connect.preparedStatement(query);
+
+		try {
+			ps.setString(1, itemId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 

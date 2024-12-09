@@ -1,14 +1,12 @@
 package view;
 
+import component.CustomDropShadow;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -18,7 +16,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 
-public class AuthenticationView {
+public abstract class AuthenticationView {
+
+	protected abstract void init();
+
+	protected abstract void initPage();
 
 	protected VBox createContainer() {
 
@@ -26,50 +28,11 @@ public class AuthenticationView {
 		vbox.setMaxHeight(600);
 		vbox.setMaxWidth(500);
 		vbox.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(10), null)));
-		vbox.setEffect(createDropShadow());
+		vbox.setEffect(new CustomDropShadow());
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setPadding(new Insets(20, 40, 20, 40));
 
 		return vbox;
-	}
-
-	protected DropShadow createDropShadow() {
-
-		DropShadow shadow = new DropShadow();
-		shadow.setRadius(10);
-		shadow.setOffsetX(0);
-		shadow.setOffsetX(0);
-		shadow.setColor(Color.GRAY);
-
-		return shadow;
-	}
-
-	protected VBox createTextFieldContainer(TextField textField, String text) {
-		VBox vbox = new VBox(5);
-		vbox.getChildren().addAll(createLabel(text, 14), textField);
-		return vbox;
-	}
-
-	protected VBox createPasswordFieldContainer(PasswordField passwordField, String text) {
-		VBox vbox = new VBox(5);
-		vbox.getChildren().addAll(createLabel(text, 14), passwordField);
-		return vbox;
-	}
-
-	protected TextField createTextField(String text) {
-		TextField textField = new TextField();
-		textField.setPromptText(text);
-		textField.setFont(Font.font("Poppins", 16));
-		textField.setPadding(new Insets(5, 10, 5, 10));
-		return textField;
-	}
-
-	protected PasswordField createPasswordField(String text) {
-		PasswordField passwordField = new PasswordField();
-		passwordField.setPromptText(text);
-		passwordField.setFont(Font.font("Poppins", 16));
-		passwordField.setPadding(new Insets(5, 10, 5, 10));
-		return passwordField;
 	}
 
 	protected Button createButton(String text) {

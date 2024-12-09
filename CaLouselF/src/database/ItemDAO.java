@@ -47,7 +47,7 @@ public class ItemDAO {
 	}
 
 	public List<Item> getAllSellerItems(String sellerId) {
-		String query = "SELECT * FROM item WHERE Seller_ID LIKE \"?\" ";
+		String query = "SELECT * FROM item WHERE Seller_ID LIKE ? ";
 		List<Item> items = new ArrayList<Item>();
 
 		try (PreparedStatement ps = connect.preparedStatement(query)) {
@@ -324,4 +324,67 @@ public class ItemDAO {
 			System.out.println("Fail to Make Offer");
 		}
 	}
+
+	public List<Item> getAllOfferItems(String sellerId) {
+		String query = "SELECT * FROM item WHERE Item_offer_status LIKE \"Pending\" AND Seller_id = ? ";
+		List<Item> items = new ArrayList<Item>();
+
+		try (PreparedStatement ps = connect.preparedStatement(query)) {
+			ps.setString(1, sellerId);
+
+			try (ResultSet rs = ps.executeQuery()) {
+
+				while (rs != null && rs.next()) {
+					String item_id = rs.getString("Item_id");
+					String name = rs.getString("Item_name");
+					String size = rs.getString("Item_size");
+					String price = rs.getString("Item_price");
+					String category = rs.getString("Item_category");
+					String status = rs.getString("Item_status");
+					String wishlist = rs.getString("Item_wishlist");
+					String offer_status = rs.getString("Item_offer_status");
+					String seller_id = rs.getString("Seller_ID");
+					String offer_price = rs.getString("Item_offer_price");
+					String offer_user_id = rs.getString("Item_offer_user_id");
+
+					Item item = new Item(item_id, name, price, size, category, status, wishlist, offer_status,
+							seller_id, offer_price, offer_user_id);
+					items.add(item);
+				}
+
+			}
+
+		} catch (SQLException e) {
+			System.out.println("No Item found");
+		}
+		return items;
+	}
+
+	public void acceptOffer(String price, String item_id) {
+		String query = "UPDATE item SET Item_offer_status = 'Unlisted', Item_price = ?  WHERE Item_id = ?";
+		PreparedStatement ps = connect.preparedStatement(query);
+
+		try {
+			ps.setString(1, price);
+			ps.setString(2, item_id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+
+			System.out.println("Fail to Accept Offer");
+		}
+	}
+
+	public void declineOffer(String item_id) {
+		String query = "UPDATE item SET Item_offer_status = 'Unlisted', Item_offer_price = '0', Item_offer_user_id = NULL  WHERE Item_id = ?";
+		PreparedStatement ps = connect.preparedStatement(query);
+
+		try {
+			ps.setString(1, item_id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+
+			System.out.println("Fail to Decline Offer");
+		}
+	}
+
 }

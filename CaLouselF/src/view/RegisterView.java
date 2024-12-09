@@ -1,5 +1,8 @@
 package view;
 
+import component.CustomInputContainer;
+import component.CustomPasswordField;
+import component.CustomTextField;
 import controller.UserController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -35,11 +38,32 @@ public class RegisterView extends AuthenticationView {
 		Session.getSession();
 		init();
 
+		initPage();
+	}
+
+	@Override
+	protected void init() {
+		usernameField = new CustomTextField("Enter your username");
+		passwordField = new CustomPasswordField("Enter your password");
+		phoneField = new CustomTextField("Enter your phone number");
+		addressField = createTextArea("Enter your address");
+		registerButton = createButton("Register");
+		loginButton = createHyperlink("Sign In Now");
+		errorLabel = createLabel("", 12);
+		errorLabel.setTextFill(Color.RED);
+
+		registerButton.setOnAction(event -> register(usernameField.getText(), passwordField.getText(),
+				phoneField.getText(), addressField.getText(), getSelectedRole()));
+		loginButton.setOnAction(event -> goToLoginView());
+	}
+
+	@Override
+	protected void initPage() {
 		VBox container = createContainer();
 
-		container.getChildren().addAll(createLabel("Register", 40), createTextFieldContainer(usernameField, "Username"),
-				createPasswordFieldContainer(passwordField, "Password"),
-				createTextFieldContainer(phoneField, "Phone Number"), createAddressContainer(addressField, "Address"),
+		container.getChildren().addAll(createLabel("Register", 40), new CustomInputContainer("Username", usernameField),
+				new CustomInputContainer("Password", passwordField),
+				new CustomInputContainer("Phone Number", phoneField), new CustomInputContainer("Address", addressField),
 				createRoleGroupContainer("Roles"), errorLabel, registerButton,
 				createLabel("Already have an account?", 14), loginButton);
 
@@ -51,21 +75,7 @@ public class RegisterView extends AuthenticationView {
 
 		Session.stage.setScene(scene);
 		Session.stage.setTitle("Register Page");
-	}
 
-	private void init() {
-		usernameField = createTextField("Enter your username");
-		passwordField = createPasswordField("Enter your password");
-		phoneField = createTextField("Enter your phone number");
-		addressField = createTextArea("Enter your address");
-		registerButton = createButton("Register");
-		loginButton = createHyperlink("Sign In Now");
-		errorLabel = createLabel("", 12);
-		errorLabel.setTextFill(Color.RED);
-
-		registerButton.setOnAction(event -> register(usernameField.getText(), passwordField.getText(),
-				phoneField.getText(), addressField.getText(), getSelectedRole()));
-		loginButton.setOnAction(event -> goToLoginView());
 	}
 
 	private void register(String username, String password, String phone, String address, String role) {

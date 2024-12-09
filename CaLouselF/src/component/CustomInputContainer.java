@@ -1,6 +1,8 @@
 package component;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -13,9 +15,20 @@ public class CustomInputContainer extends VBox {
 		getChildren().addAll(createLabel(text), input);
 	}
 
+	public CustomInputContainer(String text, PasswordField input) {
+		super(5);
+		getChildren().addAll(createLabel(text), input);
+	}
+
+	public CustomInputContainer(String text, TextArea input) {
+		super(5);
+		getChildren().addAll(createLabel(text), input);
+	}
+
 	private Label createLabel(String text) {
 		Label label = new Label(text);
 		label.setFont(Font.font("Poppins", FontWeight.BOLD, 16));
 		return label;
 	}
+
 }

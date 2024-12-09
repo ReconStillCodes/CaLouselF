@@ -15,6 +15,7 @@ import view.AddItemView;
 import view.HistoryView;
 import view.HomeView;
 import view.LoginView;
+import view.OfferView;
 import view.RequestView;
 import view.WishlistView;
 
@@ -61,6 +62,7 @@ public class NavBar extends HBox {
 		Hyperlink offersButton = createLink("Offers");
 		Hyperlink addItemsButton = createLink("Add Items");
 
+		offersButton.setOnAction(event -> goToOffer());
 		addItemsButton.setOnAction(event -> goToAddItem());
 
 		getChildren().addAll(homeButton, offersButton, addItemsButton, logoutButton);
@@ -107,5 +109,9 @@ public class NavBar extends HBox {
 
 	protected void goToRequest() {
 		new RequestView();
+	}
+
+	protected void goToOffer() {
+		new OfferView();
 	}
 }
