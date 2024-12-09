@@ -3,6 +3,7 @@ package view;
 import java.util.List;
 
 import component.CustomButton;
+import component.CustomTextField;
 import component.ItemCard;
 import controller.ItemController;
 import controller.TransactionController;
@@ -34,7 +35,7 @@ public class HomeView extends MasterView {
 
 	public HomeView() {
 		Session.getSession();
-		Session.user = new User("UD000", "John Doe", "12341234", "+62123456789", "America", "Admin");
+		Session.user = new User("UD002", "John Doe", "12341234", "+62123456789", "America", "Buyer");
 
 		if (!isSessionValid()) {
 			new LoginView();
@@ -129,7 +130,7 @@ public class HomeView extends MasterView {
 					items.get(i).getPrice());
 
 			if (Session.user.getRole().toLowerCase().equals("buyer")) {
-				itemCard = createBuyerItemCard(itemCard, items.get(i).getId());
+				itemCard = createBuyerItemCard(itemCard, items.get(i).getId(), items.get(i).getOffer_price());
 			} else if (Session.user.getRole().toLowerCase().equals("seller")) {
 				itemCard = createSellerItemCard(itemCard, items.get(i).getId());
 			}
@@ -139,20 +140,20 @@ public class HomeView extends MasterView {
 
 	}
 
-	private ItemCard createBuyerItemCard(ItemCard itemCard, String item_id) {
+	private ItemCard createBuyerItemCard(ItemCard itemCard, String item_id, String offer_price) {
 		Button buyButton = new CustomButton("Buy", Color.BLACK);
 		Button wishButton = new CustomButton("Wish", Color.CORNFLOWERBLUE);
 		Button offerButton = new CustomButton("Offer", Color.BLACK);
 
+		TextField offerField = new CustomTextField("Current Offer: Rp " + offer_price);
+
 		buyButton.setOnAction(event -> purchaseHandler(item_id));
 		wishButton.setOnAction(event -> wishlistHandler(item_id));
+		offerButton.setOnAction(event -> offerHandler(offerField.getText(), offer_price, item_id));
 
 		HBox buttonContainer = new HBox(5);
 		buttonContainer.setMaxWidth(300);
 		buttonContainer.getChildren().addAll(buyButton, wishButton);
-
-		TextField offerField = new TextField();
-		offerField.setPromptText("Enter your Offer");
 
 		itemCard.addHBox(buttonContainer);
 		itemCard.addTextField(offerField);
@@ -195,6 +196,11 @@ public class HomeView extends MasterView {
 		transactionController.purchaseItem(Session.user.getUser_id(), item_id);
 		itemController.updatePurchaseItem(item_id);
 
+		initItemCards(itemController.viewItem());
+	}
+
+	private void offerHandler(String offer, String curr_offer, String item_id) {
+		itemController.makeOffer(offer, curr_offer, Session.user.getUser_id(), item_id);
 		initItemCards(itemController.viewItem());
 	}
 

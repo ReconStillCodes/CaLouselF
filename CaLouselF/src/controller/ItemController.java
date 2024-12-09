@@ -130,4 +130,21 @@ public class ItemController {
 		itemDAO.deleteItem(item_id);
 	}
 
+	public void makeOffer(String offer, String curr_offer, String user_id, String item_id) {
+		if (!checkInputEmpty(offer)) {
+			return;
+		}
+
+		for (int i = 0; i < offer.length(); i++) {
+			if (!Character.isDigit(offer.charAt(i)))
+				return;
+		}
+
+		if (Double.parseDouble(offer) <= Double.parseDouble(curr_offer)) {
+			return;
+		}
+
+		itemDAO.makeOffer(offer, user_id, item_id);
+	}
+
 }

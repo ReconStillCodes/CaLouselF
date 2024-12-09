@@ -309,4 +309,19 @@ public class ItemDAO {
 			System.out.println("Fail to AcceptItem");
 		}
 	}
+
+	public void makeOffer(String offer, String user_id, String item_id) {
+		String query = "UPDATE item SET Item_Offer_Status = 'Pending', Item_Offer_Price = ?, Item_Offer_User_id = ? WHERE Item_id = ?";
+		PreparedStatement ps = connect.preparedStatement(query);
+
+		try {
+			ps.setString(1, offer);
+			ps.setString(2, user_id);
+			ps.setString(3, item_id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+
+			System.out.println("Fail to Make Offer");
+		}
+	}
 }
