@@ -117,11 +117,13 @@ public class RequestView extends MasterView {
 	}
 
 	private void acceptHandler(String item_id) {
-
+		itemController.acceptItem(item_id);
+		initItemCards(itemController.viewRequestItem());
 	}
 
 	private void declineHandler(String reason, String item_id) {
-
+		itemController.declineItem(reason, item_id);
+		initItemCards(itemController.viewRequestItem());
 	}
 
 }

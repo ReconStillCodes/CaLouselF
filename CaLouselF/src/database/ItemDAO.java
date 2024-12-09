@@ -296,4 +296,17 @@ public class ItemDAO {
 		}
 		return items;
 	}
+
+	public void acceptItem(String item_id) {
+		String query = "UPDATE item SET Item_status = 'Available'  WHERE Item_id = ?";
+		PreparedStatement ps = connect.preparedStatement(query);
+
+		try {
+			ps.setString(1, item_id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+
+			System.out.println("Fail to AcceptItem");
+		}
+	}
 }

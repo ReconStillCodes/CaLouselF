@@ -118,4 +118,16 @@ public class ItemController {
 		return items;
 	}
 
+	public void acceptItem(String item_id) {
+		itemDAO.acceptItem(item_id);
+	}
+
+	public void declineItem(String reason, String item_id) {
+		if (!checkInputEmpty(reason)) {
+			return;
+		}
+
+		itemDAO.deleteItem(item_id);
+	}
+
 }
