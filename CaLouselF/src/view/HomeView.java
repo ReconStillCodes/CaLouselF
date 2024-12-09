@@ -5,6 +5,7 @@ import java.util.List;
 import component.CustomButton;
 import component.ItemCard;
 import controller.ItemController;
+import controller.TransactionController;
 import controller.WishlistController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -26,6 +27,7 @@ public class HomeView extends MasterView {
 
 	private ItemController itemController = new ItemController();
 	private WishlistController wishlistController = new WishlistController();
+	private TransactionController transactionController = new TransactionController();
 	private TextField searchField;
 	private Button searchButton;
 	private GridPane browseContainer;
@@ -142,6 +144,7 @@ public class HomeView extends MasterView {
 		Button wishButton = new CustomButton("Wish", Color.CORNFLOWERBLUE);
 		Button offerButton = new CustomButton("Offer", Color.BLACK);
 
+		buyButton.setOnAction(event -> purchaseHandler(item_id));
 		wishButton.setOnAction(event -> wishlistHandler(item_id));
 
 		HBox buttonContainer = new HBox(5);
@@ -186,6 +189,13 @@ public class HomeView extends MasterView {
 
 	private void wishlistHandler(String item_id) {
 		wishlistController.addWishlist(item_id, Session.user.getUser_id());
+	}
+
+	private void purchaseHandler(String item_id) {
+		transactionController.purchaseItem(Session.user.getUser_id(), item_id);
+		itemController.updatePurchaseItem(item_id);
+
+		initItemCards(itemController.viewItem());
 	}
 
 }

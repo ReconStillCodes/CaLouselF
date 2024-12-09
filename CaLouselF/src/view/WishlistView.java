@@ -60,12 +60,7 @@ public class WishlistView extends MasterView {
 
 		initItemCards(wishlistController.viewWishlist(Session.user.getUser_id()));
 
-		Label title;
-		if (Session.user.getRole().toLowerCase().equals("seller")) {
-			title = createTitle("Seller's Items", 30);
-		} else {
-			title = createTitle("Available Items", 30);
-		}
+		Label title = createTitle("Wishlists Items", 30);
 
 		body.getChildren().addAll(title, itemContainer);
 

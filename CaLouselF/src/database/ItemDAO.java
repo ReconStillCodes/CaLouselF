@@ -249,4 +249,17 @@ public class ItemDAO {
 			System.out.println("Fail Edit Item");
 		}
 	}
+
+	public void updatePurchaseItem(String item_id) {
+		String query = "UPDATE item SET Item_status = 'Unavailable', Item_wishlist = 'Unavailable', Item_Offer_Status = 'Unavailable' WHERE Item_id = ?";
+		PreparedStatement ps = connect.preparedStatement(query);
+
+		try {
+			ps.setString(1, item_id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+
+			System.out.println("Fail Edit Item");
+		}
+	}
 }

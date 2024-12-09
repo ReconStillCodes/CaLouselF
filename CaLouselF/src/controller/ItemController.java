@@ -107,4 +107,8 @@ public class ItemController {
 		return true;
 	}
 
+	public void updatePurchaseItem(String item_id) {
+		itemDAO.updatePurchaseItem(item_id);
+	}
+
 }
