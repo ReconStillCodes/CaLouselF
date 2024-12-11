@@ -10,9 +10,9 @@ import model.Transaction;
 
 public class TransactionDAO {
 
-	private final Connect connect = Connect.getInstance();
+	private final Connect connect = Connect.getInstance(); // get a connection
 
-	public void insertTransaction(Transaction transaction) {
+	public void insertTransaction(Transaction transaction) { // insert a transaction
 		String query = "INSERT INTO transaction (transaction_id, user_id, item_id) VALUES (?, ?, ?)";
 		PreparedStatement ps = connect.preparedStatement(query);
 
@@ -28,7 +28,7 @@ public class TransactionDAO {
 		}
 	}
 
-	public String getMaxUserID() {
+	public String getMaxUserID() { // get max id to create a new id
 		String query = "SELECT MAX(transaction_id) FROM transaction";
 		ResultSet rs = connect.execQuery(query);
 
@@ -44,7 +44,7 @@ public class TransactionDAO {
 		return null;
 	}
 
-	public List<Transaction> getTransactionByUserID(String userId) {
+	public List<Transaction> getTransactionByUserID(String userId) { // get transaction by user id
 		String query = "SELECT * FROM transaction WHERE user_id LIKE ?";
 
 		List<Transaction> transactions = new ArrayList<Transaction>();

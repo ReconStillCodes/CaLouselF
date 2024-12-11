@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import model.User;
 
 public class UserDAO {
-	private Connect connect = Connect.getInstance();
+	private Connect connect = Connect.getInstance(); // get a connection
 
-	public User getUserByUsername(String username) {
+	public User getUserByUsername(String username) { // get existing username
 		String query = "SELECT * FROM user WHERE Username LIKE ?";
 
 		try (PreparedStatement ps = connect.preparedStatement(query)) {
@@ -35,7 +35,7 @@ public class UserDAO {
 		return null;
 	}
 
-	public User getUserByUsernameAndPassword(String username, String password) {
+	public User getUserByUsernameAndPassword(String username, String password) { // get a user that wants to login
 		String query = "SELECT * FROM user WHERE Username LIKE ? AND Password LIKE ?";
 
 		try (PreparedStatement ps = connect.preparedStatement(query)) {
@@ -62,7 +62,7 @@ public class UserDAO {
 		return null;
 	}
 
-	public void insertUser(User user) {
+	public void insertUser(User user) { // insert a user
 		String query = "INSERT INTO user (User_id, Username, Password, Phone_Number, Address, Role) VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = connect.preparedStatement(query);
 
@@ -80,7 +80,7 @@ public class UserDAO {
 		}
 	}
 
-	public String getMaxUserID() {
+	public String getMaxUserID() { // get max user id to create new id
 		String query = "SELECT MAX(user_id) FROM User";
 		ResultSet rs = connect.execQuery(query);
 

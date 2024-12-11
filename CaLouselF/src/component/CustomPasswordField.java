@@ -4,7 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.PasswordField;
 import javafx.scene.text.Font;
 
-public class CustomPasswordField extends PasswordField {
+public class CustomPasswordField extends PasswordField { // Create custom password field
 
 	public CustomPasswordField(String text) {
 		setPromptText(text);

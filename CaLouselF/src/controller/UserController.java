@@ -6,13 +6,13 @@ import session.Session;
 
 public class UserController {
 
-	private final UserDAO userDAO = new UserDAO();
+	private final UserDAO userDAO = new UserDAO(); // Access to User Database
 
-	public Boolean login(String username, String password) {
-		if (!checkInputEmpty(username) || !checkInputEmpty(password))
+	public Boolean login(String username, String password) { // Handle login
+		if (!checkInputEmpty(username) || !checkInputEmpty(password)) // Check for validation
 			return false;
 
-		User user = null;
+		User user = null; // login logic
 		if (username.equals("admin") && password.equals("admin")) {
 			user = new User("UD0000", username, password, "", "", "Admin");
 		} else {
@@ -22,24 +22,26 @@ public class UserController {
 		if (user == null)
 			return false;
 
-		Session.getSession();
+		Session.getSession(); // Put user in the session
 		Session.user = user;
 		return true;
 	}
 
+	// Handle register logic
 	public Boolean register(String username, String password, String phone, String address, String role) {
 		boolean isValid = checkAccountValidation(username, password, phone, address, role);
 
-		if (!isValid) {
+		if (!isValid) { // Validate credentials
 
 			return false;
 		}
 
-		User user = new User(generateID(), username, password, phone, address, role);
+		User user = new User(generateID(), username, password, phone, address, role); // Create new User
 		userDAO.insertUser(user);
 		return true;
 	}
 
+	// Validate credentials
 	public boolean checkAccountValidation(String username, String password, String phone, String address, String role) {
 		if (!checkUsernameValidation(username))
 			return false;
@@ -124,7 +126,7 @@ public class UserController {
 		return true;
 	}
 
-	private String generateID() {
+	private String generateID() { // Create new Id
 		String latestID = userDAO.getMaxUserID();
 
 		if (!checkInputEmpty(latestID)) {

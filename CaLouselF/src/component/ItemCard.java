@@ -15,7 +15,8 @@ import javafx.scene.text.FontWeight;
 
 public class ItemCard extends VBox {
 
-	public ItemCard(String category, String name, String size, String price) {
+	public ItemCard(String category, String name, String size, String price) { // create a container for item's
+																				// informations
 		super(5);
 		setPadding(new Insets(10, 10, 10, 10));
 		setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(10), null)));
@@ -31,19 +32,20 @@ public class ItemCard extends VBox {
 
 	}
 
-	private Label createTitle(String text, int size) {
+	private Label createTitle(String text, int size) { // Create Custom title
 		Label label = new Label(text);
 		label.setFont(Font.font("Poppins", FontWeight.BOLD, size));
 		return label;
 	}
 
-	private Label createDesc(String text, int size, Color color) {
+	private Label createDesc(String text, int size, Color color) { // Create custom Description
 		Label label = new Label(text);
 		label.setFont(Font.font("Poppins", FontWeight.MEDIUM, size));
 		label.setTextFill(color);
 		return label;
 	}
 
+	// Add extra components
 	public void addButton(Button button) {
 		getChildren().addAll(button);
 	}

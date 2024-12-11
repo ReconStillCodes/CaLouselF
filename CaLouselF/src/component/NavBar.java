@@ -23,7 +23,7 @@ public class NavBar extends HBox {
 
 	Hyperlink homeButton, logoutButton;
 
-	public NavBar() {
+	public NavBar() { // Create a custome navbar
 		// Navbar Buyer: Home, Wishlist, History,
 		// Navbar Seller: Home, Offers, Add items
 		// Navbar Admin: Home, Requests
@@ -38,6 +38,7 @@ public class NavBar extends HBox {
 		logoutButton = createLink("Logout");
 		logoutButton.setOnAction(event -> logout());
 
+		// Get custom buttons for each roles
 		if (Session.user.getRole().toLowerCase().equals("buyer")) {
 			navbarBuyer();
 		} else if (Session.user.getRole().toLowerCase().equals("seller")) {
@@ -48,7 +49,7 @@ public class NavBar extends HBox {
 
 	}
 
-	private void navbarBuyer() {
+	private void navbarBuyer() { // Buyer's navbar
 		Hyperlink wishlistButton = createLink("Wishlists");
 		Hyperlink historyButton = createLink("History");
 
@@ -58,7 +59,7 @@ public class NavBar extends HBox {
 		getChildren().addAll(homeButton, wishlistButton, historyButton, logoutButton);
 	}
 
-	private void navbarSeller() {
+	private void navbarSeller() { // Seller's navbar
 		Hyperlink offersButton = createLink("Offers");
 		Hyperlink addItemsButton = createLink("Add Items");
 
@@ -68,7 +69,7 @@ public class NavBar extends HBox {
 		getChildren().addAll(homeButton, offersButton, addItemsButton, logoutButton);
 	}
 
-	private void navbarAdmin() {
+	private void navbarAdmin() { // Admin's navbar
 		Hyperlink requestsButton = createLink("Requests");
 
 		requestsButton.setOnAction(event -> goToRequest());
@@ -76,7 +77,7 @@ public class NavBar extends HBox {
 		getChildren().addAll(homeButton, requestsButton, logoutButton);
 	}
 
-	protected Hyperlink createLink(String text) {
+	protected Hyperlink createLink(String text) { // create navbar buttons
 		Hyperlink link = new Hyperlink(text);
 		link.setTextFill(Color.WHITE);
 		link.setFont(Font.font("Poppins", FontWeight.BOLD, 20));
@@ -85,7 +86,7 @@ public class NavBar extends HBox {
 		return link;
 	}
 
-	// NavBar Buttons
+	// Page redirect handler
 	protected void goToHome() {
 		new HomeView();
 	}

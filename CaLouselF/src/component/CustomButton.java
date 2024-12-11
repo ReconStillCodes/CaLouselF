@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class CustomButton extends Button {
+public class CustomButton extends Button { // Create a custom button for the app
 	public CustomButton(String text, Color color) {
 		super(text);
 		setFont(Font.font("Poppins", FontWeight.BOLD, 16));

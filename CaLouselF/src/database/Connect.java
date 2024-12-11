@@ -34,14 +34,13 @@ public class Connect {
 		}
 	}
 
-	public static Connect getInstance() {
+	public static Connect getInstance() { // Singleton for connection
 		if (connect == null)
 			connect = new Connect();
 		return connect;
 	}
 
-	// SELECT
-	public ResultSet execQuery(String Query) {
+	public ResultSet execQuery(String Query) { // Select from database
 		rs = null;
 		try {
 			rs = st.executeQuery(Query);
@@ -53,8 +52,7 @@ public class Connect {
 		return rs;
 	}
 
-	// INSERT, UPDATE, DELETE (Buat jalanin Query SQL)
-	public void execUpdate(String Query) {
+	public void execUpdate(String Query) { // Modified database by insert, update, or delete
 		try {
 			st.executeUpdate(Query);
 		} catch (SQLException e) {
@@ -67,7 +65,7 @@ public class Connect {
 		try {
 			ps = con.prepareStatement(query);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		return ps;

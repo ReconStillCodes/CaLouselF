@@ -7,9 +7,9 @@ import model.Wishlist;
 
 public class WishlistController {
 
-	private WishlistDAO wishlistDAO = new WishlistDAO();
+	private WishlistDAO wishlistDAO = new WishlistDAO(); // access to wishlist database
 
-	public void addWishlist(String itemId, String userId) {
+	public void addWishlist(String itemId, String userId) { // Create new wishlist
 		if (isWishlistExist(itemId, userId)) {
 			return;
 		}
@@ -18,7 +18,7 @@ public class WishlistController {
 		wishlistDAO.insertWishlist(wishlist);
 	}
 
-	private boolean isWishlistExist(String itemId, String userId) {
+	private boolean isWishlistExist(String itemId, String userId) { // Validate if wishlist already exist or not
 		Wishlist wishlist = wishlistDAO.getItemByItemIDandUserID(itemId, userId);
 		if (wishlist == null)
 			return false;
@@ -26,7 +26,7 @@ public class WishlistController {
 		return true;
 	}
 
-	private String generateID() {
+	private String generateID() { // create new id
 		String latestID = wishlistDAO.getMaxUserID();
 
 		if (latestID == null || latestID.isEmpty() || latestID.length() <= 0) {
@@ -38,15 +38,15 @@ public class WishlistController {
 		return String.format("WH%03d", number);
 	}
 
-	public void removeWishlist(String id) {
+	public void removeWishlist(String id) { // remove wishlist
 		wishlistDAO.deleteWishlist(id);
 	}
 
-	public void removeWishlistAfterPruchase(String itemId) {
+	public void removeWishlistAfterPruchase(String itemId) { // remove wishlist when the item's is purchasedd
 		wishlistDAO.deleteWishlistByItemID(itemId);
 	}
 
-	public List<Wishlist> viewWishlist(String userId) {
+	public List<Wishlist> viewWishlist(String userId) { // view all user's wishlists
 		List<Wishlist> wishlists = wishlistDAO.getItemByUserID(userId);
 		return wishlists;
 	}

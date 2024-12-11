@@ -4,7 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 
-public class CustomTextField extends TextField {
+public class CustomTextField extends TextField { // Create custome Text field
 
 	public CustomTextField(String text) {
 		setPromptText(text);

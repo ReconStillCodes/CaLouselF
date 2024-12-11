@@ -15,11 +15,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		Session.getSession();
-		Session.stage = primaryStage;
-		// new LoginView();
-		new HomeView();
-		primaryStage.show();
+		Session.getSession(); // create a session
+		Session.stage = primaryStage; // send primary stage to session
+		new HomeView(); // open home
+		primaryStage.show(); // show stage
 	}
 
 }
